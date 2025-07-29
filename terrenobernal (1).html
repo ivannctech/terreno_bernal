@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oportunidad de Inversión Premium: Terreno en Peña de Bernal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Lora:wght@400;600&display=swap" rel="stylesheet">
+    
+    <!-- Chosen Palette: Earthy Elegance -->
+    <!-- Application Structure Plan: Se ha diseñado una aplicación de una sola página con una estructura de "narrativa de inversión". Comienza con un impactante resumen ejecutivo (La Propuesta), seguido de secciones temáticas que el inversionista puede explorar a través de una navegación fija: Oportunidad (atributos clave), Mercado (datos duros interactivos), Potencial (visualización del futuro), y Factores de Inversión (riesgos y ROI). Esta estructura prioriza la toma de decisiones del inversionista, presentando primero el "porqué", luego el "cómo" y finalmente el "qué sigue", facilitando una comprensión rápida y profunda del valor del proyecto. -->
+    <!-- Visualization & Content Choices: 1. Valoración (Tabla Comparativa) -> Comparar -> Gráfico de Barras Interactivo (Chart.js) -> El usuario puede pasar el cursor para ver detalles, justificando visualmente el precio premium. 2. Métricas de Mercado (Turismo, Plusvalía) -> Informar -> Tarjetas de KPI -> Presentación rápida y digerible de la solidez del mercado. 3. Escenarios de Desarrollo (Residencial, Hotel) -> Organizar -> Pestañas Interactivas (HTML/JS) -> Permite al usuario explorar los posibles modelos de negocio. 4. Regulaciones de Construcción -> Informar -> Diagrama de Tarjetas (HTML/CSS) -> Simplifica datos complejos y demuestra diligencia. Se confirma que no se usan gráficos SVG ni Mermaid JS. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #FDFBF8;
+            color: #3D405B;
+        }
+        h1, h2, h3 {
+            font-family: 'Lora', serif;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 50vh;
+            max-height: 450px;
+        }
+        @media (max-width: 768px) {
+            .chart-container {
+                height: 60vh;
+                max-height: 500px;
+            }
+        }
+        .nav-link {
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: #81B29A;
+            border-bottom-color: #81B29A;
+        }
+        .tab-btn {
+            transition: all 0.3s ease;
+        }
+        .tab-btn.active {
+            background-color: #81B29A;
+            color: #FDFBF8;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <h3 class="text-xl font-semibold text-[#3D405B]">Inversión Bernal</h3>
+            <div class="hidden md:flex space-x-8">
+                <a href="#oportunidad" class="nav-link">Oportunidad</a>
+                <a href="#mercado" class="nav-link">Análisis de Mercado</a>
+                <a href="#potencial" class="nav-link">Potencial de Desarrollo</a>
+                <a href="#inversion" class="nav-link">Factores de Inversión</a>
+                <a href="#conclusion" class="nav-link">Conclusión</a>
+            </div>
+            <div class="md:hidden">
+                <select onchange="window.location.href=this.value" class="bg-white border border-gray-300 rounded-md p-2">
+                    <option value="#">Navegar...</option>
+                    <option value="#oportunidad">Oportunidad</option>
+                    <option value="#mercado">Mercado</option>
+                    <option value="#potencial">Potencial</option>
+                    <option value="#inversion">Inversión</option>
+                    <option value="#conclusion">Conclusión</option>
+                </select>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="hero" class="relative text-white py-20 md:py-32 min-h-[60vh] flex items-center">
+            <div class="absolute inset-0 bg-black opacity-50"></div>
+            <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1620051993359-a292b3a32532?q=80&w=2070&auto=format&fit=crop');"></div>
+            <div class="container mx-auto px-6 text-center z-10">
+                <h1 class="text-4xl md:text-6xl font-bold mb-4 leading-tight">Una Inversión Icónica en Peña de Bernal</h1>
+                <p class="text-lg md:text-xl mb-8 max-w-3xl mx-auto">Un lienzo de 11,000 m² para un proyecto de lujo distintivo, con vistas inigualables al tercer monolito más grande del mundo.</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto text-center">
+                    <div class="bg-white/20 backdrop-blur-sm p-6 rounded-lg">
+                        <h3 class="text-3xl font-bold">$3k - $4.5k</h3>
+                        <p class="mt-2">MXN / m²</p>
+                    </div>
+                    <div class="bg-white/20 backdrop-blur-sm p-6 rounded-lg">
+                        <h3 class="text-3xl font-bold">11,000 m²</h3>
+                        <p class="mt-2">Superficie Total</p>
+                    </div>
+                    <div class="bg-white/20 backdrop-blur-sm p-6 rounded-lg">
+                        <h3 class="text-3xl font-bold">Uso Mixto</h3>
+                        <p class="mt-2">Habitacional y Comercial</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="oportunidad" class="py-16 md:py-24 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-[#3D405B]">La Propuesta de Valor Única</h2>
+                    <p class="mt-4 max-w-3xl mx-auto text-lg text-gray-600">Esta sección desglosa los cuatro pilares que hacen de este terreno un activo sin comparación. Cada atributo contribuye a una sinergia que eleva el potencial de retorno y minimiza el riesgo para el inversionista.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="bg-[#F4F1DE] p-8 rounded-lg shadow-md text-center hover:shadow-xl transition-shadow duration-300">
+                        <div class="text-4xl text-[#E07A5F] mb-4">⛰️</div>
+                        <h3 class="text-xl font-semibold mb-2">Vista Icónica</h3>
+                        <p class="text-gray-700">Vista directa y completa a la Peña de Bernal, un activo estético y de mercado que garantiza una prima en el valor de cualquier desarrollo.</p>
+                    </div>
+                    <div class="bg-[#F4F1DE] p-8 rounded-lg shadow-md text-center hover:shadow-xl transition-shadow duration-300">
+                        <div class="text-4xl text-[#E07A5F] mb-4">🚶‍♂️</div>
+                        <h3 class="text-xl font-semibold mb-2">Ubicación Estratégica</h3>
+                        <p class="text-gray-700">A solo 7 minutos a pie del centro del Pueblo Mágico, ofreciendo acceso inmediato a su oferta cultural, gastronómica y turística.</p>
+                    </div>
+                    <div class="bg-[#F4F1DE] p-8 rounded-lg shadow-md text-center hover:shadow-xl transition-shadow duration-300">
+                        <div class="text-4xl text-[#E07A5F] mb-4">📜</div>
+                        <h3 class="text-xl font-semibold mb-2">Zonificación Aprobada</h3>
+                        <p class="text-gray-700">Uso de suelo "Habitacional Mixto" pre-aprobado. Un factor clave que reduce drásticamente el riesgo regulatorio y acelera los plazos del proyecto.</p>
+                    </div>
+                    <div class="bg-[#F4F1DE] p-8 rounded-lg shadow-md text-center hover:shadow-xl transition-shadow duration-300">
+                        <div class="text-4xl text-[#E07A5F] mb-4">📐</div>
+                        <h3 class="text-xl font-semibold mb-2">Topografía Ventajosa</h3>
+                        <p class="text-gray-700">La inclinación natural es un lienzo para la arquitectura de lujo, permitiendo diseños escalonados que maximizan las vistas desde cada punto.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="mercado" class="py-16 md:py-24">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-[#3D405B]">Análisis de Mercado Interactivo</h2>
+                    <p class="mt-4 max-w-3xl mx-auto text-lg text-gray-600">Explore los datos que sustentan esta inversión. Esta sección presenta los indicadores clave del mercado turístico y la valoración comparativa del terreno, demostrando un entorno robusto y un precio justificado.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16 text-center">
+                    <div class="bg-white p-6 rounded-lg shadow-lg">
+                        <p class="text-4xl font-bold text-[#81B29A]">8-12%</p>
+                        <p class="mt-2 text-gray-600">Plusvalía Anual en Querétaro</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-lg">
+                        <p class="text-4xl font-bold text-[#81B29A]">70-100%</p>
+                        <p class="mt-2 text-gray-600">Ocupación Hotelera en Bernal</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-lg">
+                        <p class="text-4xl font-bold text-[#81B29A]">15,000</p>
+                        <p class="mt-2 text-gray-600">Visitantes Semanales (Pico)</p>
+                    </div>
+                </div>
+                
+                <div class="bg-white p-6 md:p-8 rounded-lg shadow-xl">
+                    <h3 class="text-2xl font-semibold text-center mb-2">Valoración Comparativa de Terrenos (MXN/m²)</h3>
+                    <p class="text-center text-gray-500 mb-6">Pase el cursor sobre las barras para ver detalles. La línea punteada indica el rango de valoración para nuestra propiedad.</p>
+                    <div class="chart-container">
+                        <canvas id="priceChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="potencial" class="py-16 md:py-24 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-[#3D405B]">Visualizando el Potencial de Desarrollo</h2>
+                    <p class="mt-4 max-w-3xl mx-auto text-lg text-gray-600">El uso de suelo "Habitacional Mixto" abre un abanico de posibilidades. Interactúe con las pestañas para explorar los escenarios de desarrollo y comprenda los parámetros regulatorios clave que guiarán el proyecto.</p>
+                </div>
+                <div class="max-w-4xl mx-auto">
+                    <div class="flex justify-center mb-8 border-b">
+                        <button class="tab-btn py-2 px-6 text-lg font-semibold active" data-tab="residencial">Residencial de Lujo</button>
+                        <button class="tab-btn py-2 px-6 text-lg font-semibold" data-tab="hotel">Hotel Boutique</button>
+                        <button class="tab-btn py-2 px-6 text-lg font-semibold" data-tab="mixto">Uso Mixto</button>
+                    </div>
+                    <div id="tab-content" class="p-6 rounded-lg bg-gray-50 min-h-[150px]">
+                        <div class="tab-pane active" id="residencial">
+                            <h4 class="text-xl font-bold mb-2">Villas y Condominios de Alta Gama</h4>
+                            <p>Creación de un complejo residencial exclusivo. La topografía permite que cada unidad tenga vistas privilegiadas y privacidad, apuntando al segmento más alto del mercado que busca segundas residencias o un estilo de vida de lujo.</p>
+                        </div>
+                        <div class="tab-pane hidden" id="hotel">
+                            <h4 class="text-xl font-bold mb-2">Un Destino de Hospitalidad Único</h4>
+                            <p>Desarrollo de un hotel boutique o resort que capitalice la vista y la proximidad al centro. Ideal para atraer turismo nacional e internacional de alto poder adquisitivo, aprovechando la alta demanda hotelera de la zona.</p>
+                        </div>
+                        <div class="tab-pane hidden" id="mixto">
+                            <h4 class="text-xl font-bold mb-2">Ecosistema de Valor Integrado</h4>
+                            <p>La opción más flexible y sinérgica. Combina residencias de lujo con servicios comerciales como restaurantes de autor, spas, y galerías, creando un destino en sí mismo que genera múltiples flujos de ingreso.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-16">
+                    <h3 class="text-2xl font-semibold text-center mb-8">Parámetros Regulatorios Clave (HMM-Bj)</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto text-center">
+                        <div class="border-2 border-[#81B29A] p-6 rounded-lg">
+                            <p class="text-3xl font-bold">3 Niveles</p>
+                            <p class="mt-1 text-gray-600">Altura Máxima (10.50m)</p>
+                        </div>
+                        <div class="border-2 border-[#81B29A] p-6 rounded-lg">
+                            <p class="text-3xl font-bold">~70%</p>
+                            <p class="mt-1 text-gray-600">Coef. Ocupación (COS)*</p>
+                        </div>
+                        <div class="border-2 border-[#81B29A] p-6 rounded-lg">
+                            <p class="text-3xl font-bold">>30%</p>
+                            <p class="mt-1 text-gray-600">Área Libre / Permeable (CAS)*</p>
+                        </div>
+                    </div>
+                    <p class="text-center mt-4 text-sm text-gray-500">*Valores de referencia. Se requiere confirmación con la autoridad municipal de Ezequiel Montes.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="inversion" class="py-16 md:py-24">
+             <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-[#3D405B]">Factores Clave para el Inversionista</h2>
+                    <p class="mt-4 max-w-3xl mx-auto text-lg text-gray-600">Esta sección aborda directamente los puntos críticos para una decisión de inversión: el potencial de retorno y los incentivos gubernamentales que lo magnifican.</p>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-4">Incentivos y Apoyos Gubernamentales</h3>
+                        <div class="overflow-x-auto bg-white rounded-lg shadow-md">
+                            <table class="w-full text-left">
+                                <thead class="bg-[#F4F1DE]">
+                                    <tr>
+                                        <th class="p-4 font-semibold">Programa / Incentivo</th>
+                                        <th class="p-4 font-semibold">Organismo</th>
+                                        <th class="p-4 font-semibold">Beneficio Clave</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y">
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="p-4">Mejora tu Hotel</td>
+                                        <td class="p-4">SECTUR</td>
+                                        <td class="p-4">Créditos para construcción</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="p-4">Fomento al Turismo</td>
+                                        <td class="p-4">FONATUR</td>
+                                        <td class="p-4">Asistencia técnica y financiera</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="p-4">Fiscales Federales</td>
+                                        <td class="p-4">Sec. de Economía</td>
+                                        <td class="p-4">Depreciación acelerada, etc.</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="p-4">Apoyos Regionales</td>
+                                        <td class="p-4">Gob. Querétaro</td>
+                                        <td class="p-4">Programas de apoyo locales</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="space-y-8">
+                        <div>
+                            <h3 class="text-2xl font-semibold mb-4">Expectativas de Retorno (ROI)</h3>
+                            <div class="bg-white p-6 rounded-lg shadow-md">
+                                <p class="text-gray-700">Destinos turísticos consolidados en México, como Tulum, muestran retornos de alquiler a corto plazo del <span class="font-bold text-[#81B29A]">8% al 12% anual</span>. La oportunidad de crear una marca de lujo desde cero en Bernal, un mercado de alta demanda y menor saturación, apunta a un potencial de retorno superior a largo plazo a través de la creación de valor.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="conclusion" class="py-16 md:py-24 bg-gray-800 text-white">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-3xl md:text-4xl font-bold">Una Oportunidad Excepcional</h2>
+                <p class="mt-4 max-w-3xl mx-auto text-lg text-gray-300">Este terreno no es una simple parcela, es la base para un proyecto emblemático en uno de los destinos más prometedores de México. La combinación de una ubicación premium, un mercado robusto y un riesgo regulatorio reducido lo posiciona como una inversión de alto valor y potencial de retorno significativo.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-[#3D405B] text-white py-8">
+        <div class="container mx-auto px-6 text-center">
+            <p>&copy; 2025 Propuesta de Inversión Terreno Peña de Bernal. Todos los derechos reservados.</p>
+            <p class="text-sm text-gray-400 mt-2">La información presentada es para fines ilustrativos y está basada en el estudio de mercado proporcionado. Se recomienda una debida diligencia independiente.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const priceData = {
+                labels: [
+                    'Terreno Campestre (22.7k m²)', 
+                    'Propiedad Tras la Peña (12.3k m²)', 
+                    'Terreno Céntrico (10k m²)', 
+                    'Terreno con Canchas (16k m²)', 
+                    'Terreno Vista Increíble (564 m²)', 
+                    'Macrolote Vergel Resort (12.2k m²)',
+                    'Lotes "El Camino de la Luz"'
+                ],
+                datasets: [{
+                    label: 'Precio por m² (MXN)',
+                    data: [200, 500, 1500, 2500, 3500, 4000, 4000],
+                    backgroundColor: [
+                        'rgba(224, 122, 95, 0.6)',
+                        'rgba(224, 122, 95, 0.6)',
+                        'rgba(129, 178, 154, 0.6)',
+                        'rgba(129, 178, 154, 0.6)',
+                        'rgba(61, 64, 91, 0.6)',
+                        'rgba(61, 64, 91, 0.8)',
+                        'rgba(61, 64, 91, 0.8)',
+                    ],
+                    borderColor: [
+                        'rgba(224, 122, 95, 1)',
+                        'rgba(224, 122, 95, 1)',
+                        'rgba(129, 178, 154, 1)',
+                        'rgba(129, 178, 154, 1)',
+                        'rgba(61, 64, 91, 1)',
+                        'rgba(61, 64, 91, 1)',
+                        'rgba(61, 64, 91, 1)',
+                    ],
+                    borderWidth: 1
+                }]
+            };
+
+            const priceChartCtx = document.getElementById('priceChart').getContext('2d');
+            new Chart(priceChartCtx, {
+                type: 'bar',
+                data: priceData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y',
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Precio (MXN)',
+                                font: { size: 14 }
+                            }
+                        },
+                        y: {
+                           ticks: {
+                                autoSkip: false,
+                                font: { size: 12 }
+                           }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return ` $${context.raw.toLocaleString('es-MX')} por m²`;
+                                }
+                            }
+                        },
+                        annotation: {
+                           annotations: {
+                              rangeMin: {
+                                 type: 'line',
+                                 xMin: 3000,
+                                 xMax: 3000,
+                                 borderColor: '#E07A5F',
+                                 borderWidth: 2,
+                                 borderDash: [6, 6],
+                                 label: {
+                                    content: 'Rango Bajo ($3,000)',
+                                    enabled: true,
+                                    position: 'start',
+                                    font: {
+                                        weight: 'bold'
+                                    }
+                                 }
+                              },
+                              rangeMax: {
+                                 type: 'line',
+                                 xMin: 4500,
+                                 xMax: 4500,
+                                 borderColor: '#E07A5F',
+                                 borderWidth: 2,
+                                 borderDash: [6, 6],
+                                 label: {
+                                    content: 'Rango Alto ($4,500)',
+                                    enabled: true,
+                                    position: 'start',
+                                     font: {
+                                        weight: 'bold'
+                                    }
+                                 }
+                              }
+                           }
+                        }
+                    }
+                }
+            });
+
+            const tabs = document.querySelectorAll('.tab-btn');
+            const panes = document.querySelectorAll('.tab-pane');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    panes.forEach(p => p.classList.add('hidden'));
+                    
+                    tab.classList.add('active');
+                    const targetPane = document.getElementById(tab.dataset.tab);
+                    targetPane.classList.remove('hidden');
+                });
+            });
+
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('main section');
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (pageYOffset >= sectionTop - 100) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').includes(current)) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+
